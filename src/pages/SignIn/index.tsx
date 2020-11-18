@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
-import getValidationsErrors from '../../utils/getValidationErrors';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -33,6 +33,7 @@ const SignIn: React.FC = () => {
     async (data: SignInFormData) => {
       try {
         formRef.current?.setErrors({});
+
         const schema = Yup.object().shape({
           email: Yup.string()
             .required('E-mail obrigatório')
@@ -52,7 +53,8 @@ const SignIn: React.FC = () => {
         history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
-          const errors = getValidationsErrors(err);
+          const errors = getValidationErrors(err);
+
           formRef.current?.setErrors(errors);
 
           return;
@@ -61,7 +63,7 @@ const SignIn: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, cheque as credenciais',
+          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
         });
       }
     },
@@ -78,7 +80,6 @@ const SignIn: React.FC = () => {
             <h1>Faça seu logon</h1>
 
             <Input name="email" icon={FiMail} placeholder="E-mail" />
-
             <Input
               name="password"
               icon={FiLock}
@@ -87,7 +88,8 @@ const SignIn: React.FC = () => {
             />
 
             <Button type="submit">Entrar</Button>
-            <a href="forgot">Esqueci minha senha</a>
+
+            <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
 
           <Link to="/signup">
@@ -96,6 +98,7 @@ const SignIn: React.FC = () => {
           </Link>
         </AnimationContainer>
       </Content>
+
       <Background />
     </Container>
   );

@@ -21,13 +21,11 @@ export const Container = styled.div`
 
     color: #312e38;
 
-    /* fazer a flecha do tooltip */
     &::before {
       content: '';
       border-style: solid;
       border-color: #ff9000 transparent;
       border-width: 6px 6px 0 6px;
-      bottom: 20px;
       top: 100%;
       position: absolute;
       left: 50%;
